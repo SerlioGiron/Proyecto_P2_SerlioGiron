@@ -7,15 +7,19 @@ package proyecto_p2_serliogiron;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Container;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.text.Style;
+import javax.swing.text.StyledDocument;
 import javax.swing.text.TableView;
 
 /**
@@ -29,10 +33,26 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
      */
     public Main() {
         initComponents();
+        
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) combobox_fuentes.getModel();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String fontNames[] = ge.getAvailableFontFamilyNames();
+        for (int i = 0; i < fontNames.length; i++) {
+            modelo.addElement(fontNames[i]);
+        }
+        combobox_fuentes.setModel(modelo);
+        
+        DefaultComboBoxModel numeros = (DefaultComboBoxModel) combobox_tamano.getModel();
+//        int numeros;
     }
     
     javax.swing.JTable tableglobal;
     Point startpoint;
+    
+    StyledDocument doc;
+    Style estilo;
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +74,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        combobox_fuentes = new javax.swing.JComboBox<>();
+        combobox_tamano = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -160,11 +180,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         jLabel2.setText("Tamaño: ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setText("Color: ");
 
         jButton1.setBackground(java.awt.Color.red);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setBackground(java.awt.Color.magenta);
 
@@ -196,11 +219,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, 0, 111, Short.MAX_VALUE)
+                .addComponent(combobox_fuentes, 0, 116, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(combobox_tamano, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -239,9 +262,9 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -373,6 +396,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 //        
     }//GEN-LAST:event_claseMousePressed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -401,6 +428,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JPanel Background;
     private javax.swing.JPanel canva;
     private javax.swing.JButton clase;
+    private javax.swing.JComboBox<String> combobox_fuentes;
+    private javax.swing.JComboBox<String> combobox_tamano;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -413,8 +442,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
