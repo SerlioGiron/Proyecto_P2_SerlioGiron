@@ -6,6 +6,7 @@
 package proyecto_p2_serliogiron;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -19,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.TableView;
 
@@ -180,6 +182,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         jLabel2.setText("Tamaño: ");
 
+        combobox_tamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "20", "24", "36", "44" }));
+
         jLabel3.setText("Color: ");
 
         jButton1.setBackground(java.awt.Color.red);
@@ -219,7 +223,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combobox_fuentes, 0, 116, Short.MAX_VALUE)
+                .addComponent(combobox_fuentes, 0, 118, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -400,6 +404,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
     }//GEN-LAST:event_jButton1MouseClicked
 
+    public static void Colorear(Component p){
+        try {
+//            StyleConstants.setForeground(estilo, p.getBackground());
+        } catch (Exception ex) {
+            
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
