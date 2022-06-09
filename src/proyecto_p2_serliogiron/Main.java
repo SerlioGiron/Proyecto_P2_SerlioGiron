@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -134,7 +135,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         PopUp.setPreferredSize(new java.awt.Dimension(78, 90));
 
-        Agregar.setText("jMenuItem2");
+        Agregar.setText("Agregar");
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarMouseClicked(evt);
+            }
+        });
         Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarActionPerformed(evt);
@@ -142,7 +148,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         });
         PopUp.add(Agregar);
 
-        Eliminar.setText("jMenuItem1");
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         PopUp.add(Eliminar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -575,6 +586,36 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AgregarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo = (DefaultTableModel)tableglobal.getModel();
+        
+        modelo.removeRow(0);
+        
+        tableglobal.setModel(modelo);
+        
+        tableglobal.revalidate();
+        tableglobal.repaint();
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+        
+        Object rowData[] = new Object[1];
+        rowData[0] = "";
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        modelo = (DefaultTableModel)tableglobal.getModel();
+        
+        modelo.addRow(rowData);
+        
+        tableglobal.setModel(modelo);
+        
+//        tableglobal.revalidate();
+//        tableglobal.repaint();
+    }//GEN-LAST:event_AgregarMouseClicked
 
     public static void Colorearbackgrounf(JButton b){
         //scrollpaneglobal.getComponent(0).setBackground(b.getBackground());
