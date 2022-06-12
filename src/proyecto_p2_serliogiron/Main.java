@@ -9,13 +9,17 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Button;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,12 +40,35 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     /**
      * Creates new form Main
      */
+    
+    public void ponerFoto(String fotonombre, int x, int y, JButton boton){
+        ImageIcon colortext = new ImageIcon(fotonombre);
+        
+        Image foto = colortext.getImage();
+        Image fotobuena = foto.getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH);
+        colortext = new ImageIcon(fotobuena);
+        boton.setIcon(colortext);
+    }
+    
     public Main() {
         initComponents();
         
+//        ImageIcon colortext = new ImageIcon("text-color.png");
+//        
+//        Image foto = colortext.getImage();
+//        Image fotobuena = foto.getScaledInstance(32, 32, java.awt.Image.SCALE_SMOOTH);
+//        colortext = new ImageIcon(fotobuena);
+//        EditText.setIcon(colortext);
+        
+        ponerFoto("text-color.png",32,32,EditText);
+        ponerFoto("tabla.png",57,40,clase);
+        
+        
+        
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) combobox_fuentes.getModel();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String fontNames[] = ge.getAvailableFontFamilyNames();
+        Font fontNames[] = ge.getAllFonts();
+        
         for (int i = 0; i < fontNames.length; i++) {
             modelo.addElement(fontNames[i]);
         }
@@ -71,7 +98,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private void initComponents() {
 
         tabla = new javax.swing.JTable();
-        pane_de_tabla = new javax.swing.JScrollPane();
         label = new javax.swing.JLabel();
         PopUp = new javax.swing.JPopupMenu();
         Agregar = new javax.swing.JMenuItem();
@@ -96,6 +122,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        EditText = new javax.swing.JButton();
         Diagrama = new javax.swing.JPanel();
         panelazul = new javax.swing.JPanel();
         clase = new javax.swing.JButton();
@@ -117,17 +144,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaMouseClicked(evt);
             }
-        });
-
-        pane_de_tabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 5));
-        pane_de_tabla.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        pane_de_tabla.setPreferredSize(new java.awt.Dimension(120, 120));
-        pane_de_tabla.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pane_de_tablaMouseClicked(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                pane_de_tablaMousePressed(evt);
+                tablaMousePressed(evt);
             }
         });
 
@@ -177,6 +195,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jLabel1.setText("Fuente: ");
 
         jLabel2.setText("Tamaño: ");
+
+        combobox_fuentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                combobox_fuentesMouseClicked(evt);
+            }
+        });
 
         combobox_tamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "20", "24", "36", "44" }));
 
@@ -272,15 +296,15 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UMLLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combobox_fuentes, 0, 118, Short.MAX_VALUE)
+                .addComponent(combobox_fuentes, 0, 65, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combobox_tamano, 0, 37, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UMLLayout.createSequentialGroup()
@@ -309,7 +333,9 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                         .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(279, 279, 279))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EditText)
+                .addGap(190, 190, 190))
         );
         UMLLayout.setVerticalGroup(
             UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +371,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                                 .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(UMLLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(EditText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -371,7 +400,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         panelazul.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 1, true));
         panelazul.setPreferredSize(new java.awt.Dimension(134, 500));
 
-        clase.setText("Clase");
+        clase.setBackground(new java.awt.Color(255, 255, 255));
         clase.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 claseMouseDragged(evt);
@@ -402,15 +431,15 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         panelazulLayout.setHorizontalGroup(
             panelazulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelazulLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(clase, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
+                .addGap(24, 24, 24)
+                .addComponent(clase, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         panelazulLayout.setVerticalGroup(
             panelazulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelazulLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(clase)
+                .addContainerGap()
+                .addComponent(clase, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -420,22 +449,22 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
         Background.setLayout(BackgroundLayout);
         BackgroundLayout.setHorizontalGroup(
-            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addComponent(panelazul, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(canva, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelazul, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                    .addComponent(panelazul, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -459,15 +488,23 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 //        canva.revalidate();
 //        canva.repaint();
         
-        JTable tablaaux = new JTable(tabla.getModel());
+        JTable tablaaux = new JTable((DefaultTableModel)tabla.getModel());
+        tablaaux.setBorder(tabla.getBorder());
+        tablaaux.setAutoResizeMode(WIDTH);
+
+
         //JScrollPane tablaaux = new JScrollPane();
-        tablaaux = tabla;
+        
+        //tablaaux = tabla;
+        
+        
         
         //tablaaux.add(new JTable(tabla.getModel()));
         
         tablaaux.setVisible(true);
         tablaaux.addMouseListener(this);
         tablaaux.addMouseMotionListener(this);
+        tableglobal = tablaaux;
         canva.add(tablaaux);
         canva.revalidate();
         canva.repaint();
@@ -476,7 +513,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         
     }//GEN-LAST:event_claseActionPerformed
-
+    ArrayList <JTable> tablas = new ArrayList();
     private void claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_claseMouseClicked
         
     }//GEN-LAST:event_claseMouseClicked
@@ -512,24 +549,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Colorearbackgrounf((JButton) evt.getComponent());
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void pane_de_tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pane_de_tablaMouseClicked
-        System.out.println("click al pane");
-        
-        scrollpaneglobal = (JScrollPane)evt.getComponent();
-    }//GEN-LAST:event_pane_de_tablaMouseClicked
-
-    private void pane_de_tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pane_de_tablaMousePressed
-        
-        scrollpaneglobal = (JScrollPane) evt.getComponent();
-        
-        System.out.println("pane de tabla pressed");
-        
-        System.out.println(scrollpaneglobal.getComponent(0));
-        
-    }//GEN-LAST:event_pane_de_tablaMousePressed
-
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
-        tableglobal = (JTable)evt.getComponent();
+        
         
         if (evt.isMetaDown()) {
             PopUp.pack();
@@ -592,12 +613,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         modelo = (DefaultTableModel)tableglobal.getModel();
         
-        modelo.removeRow(0);
+        modelo.removeRow(tableglobal.getSelectedRow());
         
         tableglobal.setModel(modelo);
         
-        tableglobal.revalidate();
-        tableglobal.repaint();
+        //tableglobal.revalidate();
+        //tableglobal.repaint();
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
@@ -605,17 +626,31 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Object rowData[] = new Object[1];
         rowData[0] = "";
         
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel m = new DefaultTableModel();
         
-        modelo = (DefaultTableModel)tableglobal.getModel();
+        m = (DefaultTableModel)tableglobal.getModel();
         
-        modelo.addRow(rowData);
+        m.addRow(rowData);
         
-        tableglobal.setModel(modelo);
+        tableglobal.setModel(m);
         
-//        tableglobal.revalidate();
-//        tableglobal.repaint();
+        //tableglobal.revalidate();
+        //tableglobal.repaint();
     }//GEN-LAST:event_AgregarMouseClicked
+
+    private void tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMousePressed
+        tableglobal = (JTable)evt.getComponent();
+        
+        System.out.println("Mouse pressed tabla");
+    }//GEN-LAST:event_tablaMousePressed
+
+    private void combobox_fuentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combobox_fuentesMouseClicked
+        //tableglobal.getComponent(tableglobal.getSelectedRow()).setFont((Font)combobox_fuentes.getSelectedItem());
+        tableglobal.setFont((Font)combobox_fuentes.getSelectedItem());
+        
+        //tableglobal.revalidate();
+        //tableglobal.repaint();
+    }//GEN-LAST:event_combobox_fuentesMouseClicked
 
     public static void Colorearbackgrounf(JButton b){
         //scrollpaneglobal.getComponent(0).setBackground(b.getBackground());
@@ -654,6 +689,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JMenuItem Agregar;
     private javax.swing.JPanel Background;
     private javax.swing.JPanel Diagrama;
+    private javax.swing.JButton EditText;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JPopupMenu PopUp;
     private javax.swing.JPanel UML;
@@ -678,7 +714,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel label;
-    private javax.swing.JScrollPane pane_de_tabla;
     private javax.swing.JPanel panelazul;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
@@ -693,6 +728,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     public void mousePressed(MouseEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
+        
+        if (e.getComponent() instanceof JTable) {
+            tableglobal = (JTable)e.getComponent();
+        }
         
         startpoint = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), e.getComponent().getParent());
     }
