@@ -103,6 +103,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         PopUp = new javax.swing.JPopupMenu();
         Agregar = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
+        ColorChooser = new javax.swing.JColorChooser();
         Background = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         UML = new javax.swing.JPanel();
@@ -291,6 +292,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             }
         });
 
+        EditText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EditTextMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout UMLLayout = new javax.swing.GroupLayout(UML);
         UML.setLayout(UMLLayout);
         UMLLayout.setHorizontalGroup(
@@ -455,7 +462,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addComponent(panelazul, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(canva, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,7 +483,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
         );
 
         pack();
@@ -653,6 +660,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         //tableglobal.repaint();
     }//GEN-LAST:event_combobox_fuentesMouseClicked
 
+    private void EditTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditTextMouseClicked
+        ColorChooser.setVisible(true);
+    }//GEN-LAST:event_EditTextMouseClicked
+
     public static void Colorearbackgrounf(JButton b){
         //scrollpaneglobal.getComponent(0).setBackground(b.getBackground());
         
@@ -689,6 +700,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
     private javax.swing.JPanel Background;
+    private javax.swing.JColorChooser ColorChooser;
     private javax.swing.JPanel Diagrama;
     private javax.swing.JButton EditText;
     private javax.swing.JMenuItem Eliminar;
@@ -723,6 +735,18 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     public void mouseClicked(MouseEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
+        
+        //------- POP UP MENU ------
+        if (e.getComponent() instanceof JTable) {
+            if (e.isMetaDown()) {
+                PopUp.pack();
+                //PopUp.setVisible(true);
+                PopUp.show(e.getComponent(),e.getX(), e.getY());
+                System.out.println("if metadown");
+            }
+        }
+        
+        
     }
 
     @Override

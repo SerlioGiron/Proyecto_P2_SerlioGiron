@@ -60,6 +60,8 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JColorChooser" name="ColorChooser">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -94,7 +96,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Background" min="-2" pref="578" max="-2" attributes="0"/>
+          <Component id="Background" pref="578" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -115,8 +117,8 @@
               <Component id="jTabbedPane2" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Component id="panelazul" min="-2" pref="115" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="canva" min="-2" pref="679" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="canva" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -455,6 +457,9 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="EditText">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EditTextMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
