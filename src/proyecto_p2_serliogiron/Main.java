@@ -62,6 +62,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         ponerFoto("text-color.png",32,32,EditText);
         ponerFoto("tabla.png",57,40,clase);
+        System.out.println("hola");
         
         
         
