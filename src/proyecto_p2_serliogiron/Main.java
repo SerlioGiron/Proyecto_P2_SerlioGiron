@@ -495,8 +495,21 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 //        canva.add(label);
 //        canva.revalidate();
 //        canva.repaint();
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo = (DefaultTableModel)tabla.getModel();
         
-        JTable tablaaux = new JTable((DefaultTableModel)tabla.getModel());
+        for (int i = 1; i < modelo.getRowCount(); i++) {
+            modelo.setValueAt("", i, 0);
+        }
+
+
+        JTable tablaaux = new JTable(modelo);
+        
+        //tablaaux = tabla;
+        
+        
+        
         tablaaux.setBorder(tabla.getBorder());
         tablaaux.setAutoResizeMode(WIDTH);
 
@@ -613,7 +626,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo = (DefaultTableModel) tableglobal.getModel();
+        
+        Object[] rowdata = new Object[1];
+        rowdata[0] = "";
+        modelo.addRow(rowdata);
+        
+        tableglobal.setModel(modelo);
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
@@ -647,7 +667,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void tablaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMousePressed
-        tableglobal = (JTable)evt.getComponent();
+        //tableglobal = (JTable)evt.getComponent();
         
         System.out.println("Mouse pressed tabla");
     }//GEN-LAST:event_tablaMousePressed
@@ -661,7 +681,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     }//GEN-LAST:event_combobox_fuentesMouseClicked
 
     private void EditTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditTextMouseClicked
-        ColorChooser.setVisible(true);
+        
+        ColorChooser.show();
     }//GEN-LAST:event_EditTextMouseClicked
 
     public static void Colorearbackgrounf(JButton b){
