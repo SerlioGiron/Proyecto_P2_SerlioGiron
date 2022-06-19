@@ -10,17 +10,26 @@ import java.awt.Button;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -35,7 +44,7 @@ import javax.swing.text.TableView;
  *
  * @author usuario
  */
-public class Main extends javax.swing.JFrame implements MouseListener, MouseMotionListener{
+public class Main extends javax.swing.JFrame implements MouseListener, MouseMotionListener, Printable{
 
     /**
      * Creates new form Main
@@ -62,6 +71,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         ponerFoto("text-color.png",32,32,EditText);
         ponerFoto("tabla.png",57,40,clase);
+        ponerFoto("impresora.jpg", 40, 32, Imprimir);
         System.out.println("hola");
         
         
@@ -103,9 +113,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         PopUp = new javax.swing.JPopupMenu();
         Agregar = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
+        EliminarTabla = new javax.swing.JMenuItem();
         ColorChooser = new javax.swing.JColorChooser();
         Background = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
+        Diagrama = new javax.swing.JPanel();
+        Imprimir = new javax.swing.JButton();
         UML = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -125,7 +138,6 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         EditText = new javax.swing.JButton();
-        Diagrama = new javax.swing.JPanel();
         panelazul = new javax.swing.JPanel();
         clase = new javax.swing.JButton();
         canva = new javax.swing.JPanel();
@@ -176,6 +188,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         });
         PopUp.add(Eliminar);
 
+        EliminarTabla.setText("Eliminar Tabla");
+        EliminarTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EliminarTablaMouseClicked(evt);
+            }
+        });
+        PopUp.add(EliminarTabla);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(16, 9));
@@ -190,6 +210,35 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jTabbedPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane2.setFont(new java.awt.Font("Nirmala UI", 0, 11)); // NOI18N
         jTabbedPane2.setPreferredSize(new java.awt.Dimension(800, 103));
+
+        Diagrama.setBackground(new java.awt.Color(255, 255, 255));
+        Diagrama.setForeground(new java.awt.Color(255, 255, 255));
+
+        Imprimir.setBackground(new java.awt.Color(255, 255, 255));
+        Imprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ImprimirMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DiagramaLayout = new javax.swing.GroupLayout(Diagrama);
+        Diagrama.setLayout(DiagramaLayout);
+        DiagramaLayout.setHorizontalGroup(
+            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DiagramaLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(Imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(719, Short.MAX_VALUE))
+        );
+        DiagramaLayout.setVerticalGroup(
+            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DiagramaLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(Imprimir, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Archivo", Diagrama);
 
         UML.setBackground(new java.awt.Color(255, 255, 255));
         UML.setForeground(new java.awt.Color(255, 255, 255));
@@ -303,106 +352,96 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         UMLLayout.setHorizontalGroup(
             UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UMLLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combobox_fuentes, 0, 65, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(EditText)
-                .addGap(190, 190, 190))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(EditText))
         );
         UMLLayout.setVerticalGroup(
             UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UMLLayout.createSequentialGroup()
-                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(UMLLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(UMLLayout.createSequentialGroup()
-                                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(UMLLayout.createSequentialGroup()
-                                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(UMLLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(EditText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel3))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(UMLLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(EditText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane2.addTab("UML", UML);
-
-        Diagrama.setBackground(new java.awt.Color(255, 255, 255));
-        Diagrama.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout DiagramaLayout = new javax.swing.GroupLayout(Diagrama);
-        Diagrama.setLayout(DiagramaLayout);
-        DiagramaLayout.setHorizontalGroup(
-            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 793, Short.MAX_VALUE)
-        );
-        DiagramaLayout.setVerticalGroup(
-            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 67, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Diagrama de Flujo", Diagrama);
 
         panelazul.setBackground(new java.awt.Color(36, 36, 204));
         panelazul.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 1, true));
@@ -470,9 +509,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-                    .addComponent(panelazul, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(canva, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                    .addComponent(panelazul, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -483,7 +521,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
         );
 
         pack();
@@ -496,19 +534,25 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 //        canva.revalidate();
 //        canva.repaint();
 
+        CrearTable();
+    }//GEN-LAST:event_claseActionPerformed
+    ArrayList <JTable> tablas = new ArrayList();
+    
+    public void CrearTable(){
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo = (DefaultTableModel)tabla.getModel();
         
-        for (int i = 1; i < modelo.getRowCount(); i++) {
-            modelo.setValueAt("", i, 0);
-        }
-
+        Object[] rowdata = new Object[4];
+        
+//        for (int i = 0; i < 4; i++) {
+//            rowdata[i] = "";
+//        }
+        
+        modelo.setColumnCount(1);
+        modelo.setRowCount(4);
 
         JTable tablaaux = new JTable(modelo);
         
         //tablaaux = tabla;
-        
-        
         
         tablaaux.setBorder(tabla.getBorder());
         tablaaux.setAutoResizeMode(WIDTH);
@@ -518,7 +562,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         //tablaaux = tabla;
         
-        
+        //startpoint = null;
         
         //tablaaux.add(new JTable(tabla.getModel()));
         
@@ -531,10 +575,9 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         canva.repaint();
         
         System.out.println(tablaaux);
-        
-        
-    }//GEN-LAST:event_claseActionPerformed
-    ArrayList <JTable> tablas = new ArrayList();
+    }
+    
+    
     private void claseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_claseMouseClicked
         
     }//GEN-LAST:event_claseMouseClicked
@@ -685,6 +728,55 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         ColorChooser.show();
     }//GEN-LAST:event_EditTextMouseClicked
 
+    private void EliminarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarTablaMouseClicked
+        DefaultTableModel m = new DefaultTableModel();
+        m = (DefaultTableModel)tableglobal.getModel();
+        
+        for (int i = 0; i < m.getRowCount(); i++) {
+            m.removeRow(i);
+        }
+        
+        tableglobal.setModel(m);
+    }//GEN-LAST:event_EliminarTablaMouseClicked
+
+    private void ImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ImprimirMouseClicked
+        printRecord(canva);
+    }//GEN-LAST:event_ImprimirMouseClicked
+    
+    
+    public void printRecord (JPanel panel){
+        PrinterJob printerjob = PrinterJob.getPrinterJob();
+        
+        printerjob.setJobName("Print Record");
+        
+        printerjob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                if (pageIndex > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            
+                Graphics2D graphics2d = (Graphics2D)graphics;
+                graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+                graphics2d.scale(1, 1);
+                panel.paint(graphics2d);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        
+        boolean returningRsult = printerjob.printDialog();
+        
+        if (returningRsult) {
+            try {
+                printerjob.print();
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    
     public static void Colorearbackgrounf(JButton b){
         //scrollpaneglobal.getComponent(0).setBackground(b.getBackground());
         
@@ -725,6 +817,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JPanel Diagrama;
     private javax.swing.JButton EditText;
     private javax.swing.JMenuItem Eliminar;
+    private javax.swing.JMenuItem EliminarTabla;
+    private javax.swing.JButton Imprimir;
     private javax.swing.JPopupMenu PopUp;
     private javax.swing.JPanel UML;
     private javax.swing.JPanel canva;
@@ -802,6 +896,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     public void mouseExited(MouseEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
+        //startpoint = null;
     }
 
     @Override
@@ -828,4 +923,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 //        throw new UnsupportedOperationException("Not supported yet.");
         //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }
