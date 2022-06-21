@@ -39,9 +39,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import static javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS;
+import static javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -122,12 +125,24 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Agregar = new javax.swing.JMenuItem();
         Eliminar = new javax.swing.JMenuItem();
         EliminarTabla = new javax.swing.JMenuItem();
+        Copy = new javax.swing.JMenuItem();
         ColorChooser = new javax.swing.JColorChooser();
         Codigo = new javax.swing.JDialog();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextArea = new javax.swing.JTextArea();
+        tabla1 = new javax.swing.JTable();
+        tabla2 = new javax.swing.JTable();
+        tabla3 = new javax.swing.JTable();
+        Pop2 = new javax.swing.JPopupMenu();
+        Pegar = new javax.swing.JMenuItem();
         Background = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
+        Diagrama = new javax.swing.JPanel();
+        Imprimir = new javax.swing.JButton();
+        PNG = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        GuardarProyecto = new javax.swing.JButton();
+        CargarProyecto = new javax.swing.JButton();
         Editar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -147,17 +162,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         EditText = new javax.swing.JButton();
-        Diagrama = new javax.swing.JPanel();
-        Imprimir = new javax.swing.JButton();
-        PNG = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        GuardarProyecto = new javax.swing.JButton();
-        CargarProyecto = new javax.swing.JButton();
         canva = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelazulUML = new javax.swing.JPanel();
         clase = new javax.swing.JButton();
         panelazulDiagrama = new javax.swing.JPanel();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
 
         tabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,6 +230,14 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         });
         PopUp.add(EliminarTabla);
 
+        Copy.setText("Copiar");
+        Copy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyActionPerformed(evt);
+            }
+        });
+        PopUp.add(Copy);
+
         TextArea.setBackground(new java.awt.Color(0, 0, 0));
         TextArea.setColumns(20);
         TextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -236,6 +256,77 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
+        tabla1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(255, 255, 0)));
+        tabla1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nombre de Clase"
+            }
+        ));
+        tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabla1MousePressed(evt);
+            }
+        });
+
+        tabla2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        tabla2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nombre de Clase"
+            }
+        ));
+        tabla2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla2MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabla2MousePressed(evt);
+            }
+        });
+
+        tabla3.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 255, 0)));
+        tabla3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nombre de Clase"
+            }
+        ));
+        tabla3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla3MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabla3MousePressed(evt);
+            }
+        });
+
+        Pegar.setText("Pegar");
+        Pegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PegarActionPerformed(evt);
+            }
+        });
+        Pop2.add(Pegar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(16, 9));
@@ -251,6 +342,76 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         jTabbedPane2.setFont(new java.awt.Font("Nirmala UI", 0, 11)); // NOI18N
         jTabbedPane2.setPreferredSize(new java.awt.Dimension(800, 103));
 
+        Diagrama.setBackground(new java.awt.Color(255, 255, 255));
+        Diagrama.setForeground(new java.awt.Color(255, 255, 255));
+
+        Imprimir.setBackground(new java.awt.Color(255, 255, 255));
+        Imprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ImprimirMouseClicked(evt);
+            }
+        });
+
+        PNG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PNGActionPerformed(evt);
+            }
+        });
+
+        jButton13.setText("Generar Codigo UML");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        GuardarProyecto.setText("Guardar Proyecto");
+        GuardarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarProyectoActionPerformed(evt);
+            }
+        });
+
+        CargarProyecto.setText("Cargar Proyecto");
+        CargarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarProyectoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout DiagramaLayout = new javax.swing.GroupLayout(Diagrama);
+        Diagrama.setLayout(DiagramaLayout);
+        DiagramaLayout.setHorizontalGroup(
+            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DiagramaLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(Imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(PNG, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuardarProyecto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CargarProyecto)
+                .addContainerGap(273, Short.MAX_VALUE))
+        );
+        DiagramaLayout.setVerticalGroup(
+            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DiagramaLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PNG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Imprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarProyecto)
+                        .addComponent(CargarProyecto)))
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Archivo", Diagrama);
+
         Editar.setBackground(new java.awt.Color(255, 255, 255));
         Editar.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -258,13 +419,28 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         jLabel2.setText("Tamaño: ");
 
+        combobox_fuentes.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combobox_fuentesItemStateChanged(evt);
+            }
+        });
         combobox_fuentes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 combobox_fuentesMouseClicked(evt);
             }
         });
+        combobox_fuentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combobox_fuentesActionPerformed(evt);
+            }
+        });
 
         combobox_tamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14", "16", "20", "24", "36", "44" }));
+        combobox_tamano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combobox_tamanoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Color: ");
 
@@ -357,6 +533,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 EditTextMouseClicked(evt);
             }
         });
+        EditText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditTextActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout EditarLayout = new javax.swing.GroupLayout(Editar);
         Editar.setLayout(EditarLayout);
@@ -365,13 +546,13 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             .addGroup(EditarLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,131 +579,64 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                     .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
-                .addComponent(EditText))
+                .addComponent(EditText)
+                .addContainerGap())
         );
         EditarLayout.setVerticalGroup(
             EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel2))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel3))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EditarLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(EditText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(combobox_fuentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(EditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(combobox_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel3))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditarLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(EditText, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
 
         jTabbedPane2.addTab("Editar", Editar);
-
-        Diagrama.setBackground(new java.awt.Color(255, 255, 255));
-        Diagrama.setForeground(new java.awt.Color(255, 255, 255));
-
-        Imprimir.setBackground(new java.awt.Color(255, 255, 255));
-        Imprimir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ImprimirMouseClicked(evt);
-            }
-        });
-
-        PNG.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PNGActionPerformed(evt);
-            }
-        });
-
-        jButton13.setText("Generar Codigo UML");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-
-        GuardarProyecto.setText("Guardar Proyecto");
-        GuardarProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardarProyectoActionPerformed(evt);
-            }
-        });
-
-        CargarProyecto.setText("Cargar Proyecto");
-        CargarProyecto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CargarProyectoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout DiagramaLayout = new javax.swing.GroupLayout(Diagrama);
-        Diagrama.setLayout(DiagramaLayout);
-        DiagramaLayout.setHorizontalGroup(
-            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DiagramaLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(Imprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(PNG, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GuardarProyecto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CargarProyecto)
-                .addContainerGap(273, Short.MAX_VALUE))
-        );
-        DiagramaLayout.setVerticalGroup(
-            DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DiagramaLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PNG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Imprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GuardarProyecto)
-                        .addComponent(CargarProyecto)))
-                .addContainerGap())
-        );
-
-        jTabbedPane2.addTab("Archivo", Diagrama);
 
         canva.setBackground(new java.awt.Color(255, 255, 255));
         canva.setPreferredSize(new java.awt.Dimension(679, 474));
@@ -588,15 +702,49 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         panelazulDiagrama.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 1, true));
         panelazulDiagrama.setPreferredSize(new java.awt.Dimension(134, 500));
 
+        jButton14.setText("imprimir");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("Variables");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        jButton16.setText("cin");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelazulDiagramaLayout = new javax.swing.GroupLayout(panelazulDiagrama);
         panelazulDiagrama.setLayout(panelazulDiagramaLayout);
         panelazulDiagramaLayout.setHorizontalGroup(
             panelazulDiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
+            .addGroup(panelazulDiagramaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelazulDiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelazulDiagramaLayout.setVerticalGroup(
             panelazulDiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(panelazulDiagramaLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton16)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Diagrama", panelazulDiagrama);
@@ -605,7 +753,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Background.setLayout(BackgroundLayout);
         BackgroundLayout.setHorizontalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BackgroundLayout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -637,11 +785,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     }// </editor-fold>//GEN-END:initComponents
 
     private void claseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claseActionPerformed
-//        label.setVisible(true);
-//        canva.add(label);
-//        canva.revalidate();
-//        canva.repaint();
-
+        
         CrearTable();
     }//GEN-LAST:event_claseActionPerformed
     ArrayList <JTable> tablas = new ArrayList();
@@ -663,7 +807,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         //tablaaux = tabla;
         
         tablaaux.setBorder(tabla.getBorder());
-        tablaaux.setAutoResizeMode(WIDTH);
+        tablaaux.setAutoResizeMode(AUTO_RESIZE_NEXT_COLUMN);
 
 
         //JScrollPane tablaaux = new JScrollPane();
@@ -832,7 +976,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     }//GEN-LAST:event_combobox_fuentesMouseClicked
 
     private void EditTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditTextMouseClicked
-        ColorChooser.show();
+        ColorChooser.setVisible(true);
     }//GEN-LAST:event_EditTextMouseClicked
 
     private void EliminarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarTablaMouseClicked
@@ -901,6 +1045,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
     private void CargarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarProyectoActionPerformed
         
+        JFileChooser filechooser = new JFileChooser();
+        int seleccion = filechooser.showOpenDialog(this);
         
         adminPanels ap = new adminPanels("./panel.serli");
         
@@ -908,6 +1054,150 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         canva = ap.getPanel();
         
     }//GEN-LAST:event_CargarProyectoActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        //Object[] rowdata = new Object[4];
+        
+        modelo.setColumnCount(1);
+        modelo.setRowCount(1);
+
+        JTable tablaaux = new JTable(modelo);
+        
+        
+        tablaaux.setBorder(tabla1.getBorder());
+        tablaaux.setAutoResizeMode(AUTO_RESIZE_NEXT_COLUMN);
+        
+
+        
+        tablaaux.setVisible(true);
+        tablaaux.addMouseListener(this);
+        tablaaux.addMouseMotionListener(this);
+        tableglobal = tablaaux;
+        canva.add(tablaaux);
+        canva.revalidate();
+        canva.repaint();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla1MouseClicked
+
+    private void tabla1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla1MousePressed
+
+    private void tabla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla2MouseClicked
+
+    private void tabla2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla2MousePressed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        //Object[] rowdata = new Object[4];
+        
+        modelo.setColumnCount(1);
+        modelo.setRowCount(1);
+
+        JTable tablaaux = new JTable(modelo);
+        
+        
+        tablaaux.setBorder(tabla2.getBorder());
+        tablaaux.setAutoResizeMode(AUTO_RESIZE_NEXT_COLUMN);
+        
+
+        
+        tablaaux.setVisible(true);
+        tablaaux.addMouseListener(this);
+        tablaaux.addMouseMotionListener(this);
+        tableglobal = tablaaux;
+        canva.add(tablaaux);
+        canva.revalidate();
+        canva.repaint();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void tabla3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla3MouseClicked
+
+    private void tabla3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla3MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabla3MousePressed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        //Object[] rowdata = new Object[4];
+        
+        modelo.setColumnCount(1);
+        modelo.setRowCount(1);
+
+        JTable tablaaux = new JTable(modelo);
+        
+        
+        tablaaux.setBorder(tabla3.getBorder());
+        tablaaux.setAutoResizeMode(AUTO_RESIZE_NEXT_COLUMN);
+        
+
+        
+        tablaaux.setVisible(true);
+        tablaaux.addMouseListener(this);
+        tablaaux.addMouseMotionListener(this);
+        tableglobal = tablaaux;
+        canva.add(tablaaux);
+        canva.revalidate();
+        canva.repaint();
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void combobox_fuentesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combobox_fuentesItemStateChanged
+        
+    }//GEN-LAST:event_combobox_fuentesItemStateChanged
+
+    private void combobox_fuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_fuentesActionPerformed
+        if (canva.getComponentCount() != 0) {
+            
+            Font f = new Font(combobox_fuentes.getSelectedItem().toString(), 20, 20);
+            
+            
+            tableglobal.setFont(f);
+        }
+    }//GEN-LAST:event_combobox_fuentesActionPerformed
+
+    private void EditTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditTextActionPerformed
+
+    private void combobox_tamanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_tamanoActionPerformed
+        if (canva.getComponentCount() != 0) {
+            
+            Font f = new Font(tableglobal.getFont().toString(), Integer.parseInt(combobox_tamano.getSelectedItem().toString()), Integer.parseInt(combobox_tamano.getSelectedItem().toString()));
+            
+            
+            tableglobal.setFont(f);
+        }
+    }//GEN-LAST:event_combobox_tamanoActionPerformed
+
+    private void CopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyActionPerformed
+        JTable t = new JTable();
+        
+        t = tableglobal;
+        tablacopia = t;
+        
+        System.out.println(tablacopia);
+    }//GEN-LAST:event_CopyActionPerformed
+
+    private void PegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PegarActionPerformed
+        canva.add(tablacopia);
+        canva.revalidate();
+        canva.repaint();
+    }//GEN-LAST:event_PegarActionPerformed
+    
+    JTable tablacopia = new JTable();
     
     public String texto(JTable tabla){
         String temp = "";
@@ -1014,6 +1304,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JButton CargarProyecto;
     private javax.swing.JDialog Codigo;
     private javax.swing.JColorChooser ColorChooser;
+    private javax.swing.JMenuItem Copy;
     private javax.swing.JPanel Diagrama;
     private javax.swing.JButton EditText;
     private javax.swing.JPanel Editar;
@@ -1022,6 +1313,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JButton GuardarProyecto;
     private javax.swing.JButton Imprimir;
     private javax.swing.JButton PNG;
+    private javax.swing.JMenuItem Pegar;
+    private javax.swing.JPopupMenu Pop2;
     private javax.swing.JPopupMenu PopUp;
     private javax.swing.JTextArea TextArea;
     private javax.swing.JPanel canva;
@@ -1033,6 +1326,9 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1051,6 +1347,9 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JPanel panelazulDiagrama;
     private javax.swing.JPanel panelazulUML;
     private javax.swing.JTable tabla;
+    private javax.swing.JTable tabla1;
+    private javax.swing.JTable tabla2;
+    private javax.swing.JTable tabla3;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1066,8 +1365,13 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 PopUp.show(e.getComponent(),e.getX(), e.getY());
                 System.out.println("if metadown");
             }
+        }else{
+            if (e.isMetaDown()) {
+                Pop2.pack();
+                Pop2.show(e.getComponent(),e.getX(), e.getY());
+                System.out.println("entro al else");
+            }
         }
-        
         
     }
 
