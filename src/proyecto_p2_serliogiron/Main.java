@@ -175,7 +175,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         label.setText("jLabel1");
 
-        PopUp.setPreferredSize(new java.awt.Dimension(78, 90));
+        PopUp.setPreferredSize(new java.awt.Dimension(114, 90));
 
         Agregar.setText("Agregar");
         Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -204,9 +204,17 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 EliminarTablaMouseClicked(evt);
             }
         });
+        EliminarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarTablaActionPerformed(evt);
+            }
+        });
         PopUp.add(EliminarTabla);
 
+        TextArea.setBackground(new java.awt.Color(0, 0, 0));
         TextArea.setColumns(20);
+        TextArea.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        TextArea.setForeground(new java.awt.Color(255, 255, 255));
         TextArea.setRows(5);
         jScrollPane2.setViewportView(TextArea);
 
@@ -214,17 +222,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Codigo.getContentPane().setLayout(CodigoLayout);
         CodigoLayout.setHorizontalGroup(
             CodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CodigoLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         CodigoLayout.setVerticalGroup(
             CodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CodigoLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -461,7 +463,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             }
         });
 
-        jButton13.setText("jButton13");
+        jButton13.setText("Generar Codigo UML");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -479,18 +481,16 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addComponent(PNG, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton13)
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
         DiagramaLayout.setVerticalGroup(
             DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DiagramaLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DiagramaLayout.createSequentialGroup()
-                        .addComponent(jButton13)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(PNG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Imprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                    .addComponent(Imprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -823,6 +823,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
     
+        TextArea.setText("");
         
         String texto = "";
         
@@ -845,6 +846,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Codigo.setVisible(true);
         
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void EliminarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTablaActionPerformed
+        canva.remove(canva.getComponentAt(tableglobal.getLocation()));
+    }//GEN-LAST:event_EliminarTablaActionPerformed
     
     public String texto(JTable tabla){
         String temp = "";
@@ -853,9 +858,12 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         
         for (int i = 1; i < tabla.getRowCount(); i++) {
             
-            temp += "\t" + tabla.getValueAt(i, 0) + "\n";
+            //atributos
+            temp += "\t" + tabla.getValueAt(i, 0) + ";\n";
             
         }
+        
+        temp += "};\n\n\n";
         
         return temp;
     }
