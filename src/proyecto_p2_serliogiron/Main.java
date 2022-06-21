@@ -26,6 +26,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,6 +56,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     /**
      * Creates new form Main
      */
+    
     
     public void ponerFoto(String fotonombre, int x, int y, JButton boton){
         ImageIcon colortext = new ImageIcon(fotonombre);
@@ -79,9 +82,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         ponerFoto("impresora.jpg", 40, 35, Imprimir);
         System.out.println("hola");
         
+        
+        
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) combobox_fuentes.getModel();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Font fontNames[] = ge.getAllFonts();
+        String fontNames[] = ge.getAvailableFontFamilyNames();
         
         for (int i = 0; i < fontNames.length; i++) {
             modelo.addElement(fontNames[i]);
@@ -146,6 +151,8 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
         Imprimir = new javax.swing.JButton();
         PNG = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        GuardarProyecto = new javax.swing.JButton();
+        CargarProyecto = new javax.swing.JButton();
         canva = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelazulUML = new javax.swing.JPanel();
@@ -470,6 +477,20 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
             }
         });
 
+        GuardarProyecto.setText("Guardar Proyecto");
+        GuardarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarProyectoActionPerformed(evt);
+            }
+        });
+
+        CargarProyecto.setText("Cargar Proyecto");
+        CargarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarProyectoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DiagramaLayout = new javax.swing.GroupLayout(Diagrama);
         Diagrama.setLayout(DiagramaLayout);
         DiagramaLayout.setHorizontalGroup(
@@ -481,7 +502,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addComponent(PNG, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton13)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuardarProyecto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CargarProyecto)
+                .addContainerGap(273, Short.MAX_VALUE))
         );
         DiagramaLayout.setVerticalGroup(
             DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,7 +515,10 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
                 .addGroup(DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PNG, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Imprimir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DiagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarProyecto)
+                        .addComponent(CargarProyecto)))
                 .addContainerGap())
         );
 
@@ -501,6 +529,11 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setForeground(new java.awt.Color(0, 0, 255));
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         panelazulUML.setBackground(new java.awt.Color(36, 36, 204));
         panelazulUML.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 1, true));
@@ -792,7 +825,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
 
     private void combobox_fuentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combobox_fuentesMouseClicked
         //tableglobal.getComponent(tableglobal.getSelectedRow()).setFont((Font)combobox_fuentes.getSelectedItem());
-        tableglobal.setFont((Font)combobox_fuentes.getSelectedItem());
+        //tableglobal.setFont((Font)combobox_fuentes.getSelectedItem());
         
         //tableglobal.revalidate();
         //tableglobal.repaint();
@@ -850,6 +883,31 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private void EliminarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarTablaActionPerformed
         canva.remove(canva.getComponentAt(tableglobal.getLocation()));
     }//GEN-LAST:event_EliminarTablaActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void GuardarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarProyectoActionPerformed
+        //JFileChooser filechooser = new JFileChooser();
+        //int seleccion = filechooser.showOpenDialog(this);
+        
+        adminPanels ap = new adminPanels("./panel.serli");
+        ap.cargarArchivo();
+        ap.setPanel(canva);
+        ap.escribirArchivo();
+        
+    }//GEN-LAST:event_GuardarProyectoActionPerformed
+
+    private void CargarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarProyectoActionPerformed
+        
+        
+        adminPanels ap = new adminPanels("./panel.serli");
+        
+        ap.cargarArchivo();
+        canva = ap.getPanel();
+        
+    }//GEN-LAST:event_CargarProyectoActionPerformed
     
     public String texto(JTable tabla){
         String temp = "";
@@ -953,6 +1011,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
     private javax.swing.JPanel Background;
+    private javax.swing.JButton CargarProyecto;
     private javax.swing.JDialog Codigo;
     private javax.swing.JColorChooser ColorChooser;
     private javax.swing.JPanel Diagrama;
@@ -960,6 +1019,7 @@ public class Main extends javax.swing.JFrame implements MouseListener, MouseMoti
     private javax.swing.JPanel Editar;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.JMenuItem EliminarTabla;
+    private javax.swing.JButton GuardarProyecto;
     private javax.swing.JButton Imprimir;
     private javax.swing.JButton PNG;
     private javax.swing.JPopupMenu PopUp;

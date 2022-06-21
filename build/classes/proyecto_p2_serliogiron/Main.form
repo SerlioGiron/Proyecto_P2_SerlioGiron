@@ -164,7 +164,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="1" attributes="0">
-              <Component id="jTabbedPane2" pref="808" max="32767" attributes="0"/>
+              <Component id="jTabbedPane2" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Component id="jTabbedPane1" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -178,7 +178,7 @@
                   <Component id="jTabbedPane2" min="-2" pref="98" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="canva" pref="482" max="32767" attributes="0"/>
+                      <Component id="canva" pref="696" max="32767" attributes="0"/>
                       <Component id="jTabbedPane1" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -544,7 +544,11 @@
                           <Component id="PNG" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="517" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="GuardarProyecto" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="CargarProyecto" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="265" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -555,7 +559,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="PNG" alignment="1" max="32767" attributes="0"/>
                               <Component id="Imprimir" alignment="1" pref="37" max="32767" attributes="0"/>
-                              <Component id="jButton13" alignment="1" max="32767" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                  <Component id="jButton13" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="GuardarProyecto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="CargarProyecto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -586,6 +594,22 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton13ActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JButton" name="GuardarProyecto">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Guardar Proyecto"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuardarProyectoActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="CargarProyecto">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cargar Proyecto"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CargarProyectoActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -611,6 +635,9 @@
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jTabbedPane1StateChanged"/>
+          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -708,7 +735,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="452" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="666" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
